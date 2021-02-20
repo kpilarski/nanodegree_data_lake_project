@@ -14,6 +14,9 @@ os.environ['AWS_SECRET_ACCESS_KEY']=config['AWS_KEYS']['AWS_SECRET_ACCESS_KEY']
 
 
 def create_spark_session():
+    """
+    function for creating spark session
+    """
     spark = SparkSession \
         .builder \
         .config("spark.jars.packages", "org.apache.hadoop:hadoop-aws:2.7.0") \
@@ -22,6 +25,14 @@ def create_spark_session():
 
 
 def process_song_data(spark, input_data, output_data):
+    """
+    function for processing song data
+    
+    parameters:
+    1) spark: spark session that has been created 
+    2) input_data: path to the s3 bucket with song_data
+    3) output_data: path where the output data will be written
+    """
     # get filepath to song data file
     song_data = os.path.join(input_data, 'song_data', '*', '*', '*')
     
@@ -44,6 +55,14 @@ def process_song_data(spark, input_data, output_data):
 
 
 def process_log_data(spark, input_data, output_data):
+    """
+    function for processing log data
+    
+    parameters:
+    1) spark: spark session that has been created 
+    2) input_data: path to the s3 bucket with log_data
+    3) output_data: path where the output data will be written
+    """
     # get filepath to log data file
     log_data =
 
@@ -84,6 +103,14 @@ def process_log_data(spark, input_data, output_data):
 
 
 def main():
+    """
+    function that runs whole process.
+    - creating spark session
+    - reading song and log data from s3 bucket
+    - transforming data to the tables
+    - writing output data to the s3
+    """
+    
     spark = create_spark_session()
     input_data = "s3a://udacity-dend/"
     output_data = ""
